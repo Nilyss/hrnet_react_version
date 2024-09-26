@@ -1,0 +1,84 @@
+@use '../../utils/styles/variables' as vars;
+@use '../../utils/styles/mixins' as mixins;
+
+#navigationBanner {
+  background: linear-gradient(
+    to right,
+    adjust-color(vars.$brandColor, $lightness: 30%),
+    adjust-color(vars.$darkerBrandColor, $lightness: 20%)
+  );
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4em;
+  @media (max-width: vars.$mobileWidth) {
+    min-height: 75px;
+  }
+}
+
+#navigationBanner .menuContainer {
+  background: #ffffff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+  padding: 1em;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+#navigationBanner .openIcon {
+  position: absolute;
+  right: 1em;
+  font-size: 1.6em;
+  cursor: pointer;
+}
+
+#navigationBanner .menuContainer .closeIcon {
+  position: absolute;
+  right: 1em;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+#navigationBanner .linksContainer {
+  display: flex;
+  gap: 5em;
+  @media (max-width: vars.$mobileWidth) {
+    flex-flow: column;
+    gap: 1em;
+    margin-top: 5em;
+    text-align: center;
+  }
+}
+
+#navigationBanner a {
+  font-size: 1.2em;
+  border: 2px solid transparent;
+  @media (max-width: vars.$mobileWidth) {
+    border: unset;
+  }
+
+  &:hover {
+    border-bottom: 2px solid vars.$fontColorPrimary;
+    @media (max-width: vars.$mobileWidth) {
+      border-bottom: unset;
+      text-decoration: underline;
+    }
+  }
+}
+
+#navigationBanner a.active {
+  font-weight: 700;
+  border-bottom: 2px solid vars.$fontColorPrimary;
+  @media (max-width: vars.$mobileWidth) {
+    border-bottom: unset;
+    text-decoration: underline;
+  }
+}

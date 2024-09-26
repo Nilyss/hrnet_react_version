@@ -1,0 +1,25 @@
+@use '../../utils/styles/variables' as vars;
+@use '../../utils/styles/mixins' as mixins;
+
+footer {
+  background: vars.$fontColorPrimary;
+  min-height: 125px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+footer blockquote {
+  font-size: 0.9em;
+  color: #ffffff;
+  font-style: italic;
+  @media (max-width: vars.$mobileWidth) {
+    font-size: 0.7em;
+    padding: 2em;
+  }
+}
+
+footer blockquote .brandColor {
+  color: vars.$brandColor;
+}

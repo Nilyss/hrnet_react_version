@@ -1,0 +1,72 @@
+@use '../../utils/styles/variables' as vars;
+@use '../../utils/styles/mixins' as mixins;
+
+#homePage {
+  max-height: 82dvh;
+  @media (max-width: vars.$tabletWidth) {
+    min-height: unset;
+    max-height: unset;
+  }
+}
+
+#homePage figure {
+  max-height: 82dvh;
+  display: flex;
+  overflow: hidden;
+}
+
+#homePage figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#homePage .homePageContent {
+  padding: 2rem;
+  width: 650px;
+  position: absolute;
+  top: 60%;
+  right: 5%;
+  transform: translate(0%, -50%);
+  text-align: center;
+  background: #ffffff;
+  display: flex;
+  flex-flow: column;
+  gap: .2em;
+  @media (max-width: vars.$laptopWidth) {
+    padding: 1rem;
+    width: 450px;
+  }
+  @media (max-width: vars.$tabletWidth) {
+    width: 100%;
+    position: unset;
+    transform: unset;
+    padding: 1em;
+    opacity: 0.9;
+    margin: 2rem 0;
+    gap: 1em;
+  }
+}
+
+#homePage .homePageContent h2 {
+  font-weight: 700;
+  font-size: 2em;
+  margin-bottom: 1.5rem;
+  @media (max-width: vars.$laptopWidth) {
+    font-size: 1.5em;
+  }
+  @media (max-width: vars.$mobileWidth) {
+    font-size: 1.3em;
+  }
+}
+
+#homePage .homePageContent .brandColor {
+  color: vars.$brandColor;
+}
+
+#homePage .homePageContent p {
+  font-size: 1.2em;
+  @media (max-width: vars.$laptopWidth) {
+    font-size: 1em;
+  }
+}
