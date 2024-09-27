@@ -12,5 +12,22 @@
   "streamlineYourHumanResourceManagement": "Simplifiez la gestion des ressources humaines avec",
   "simplicityAndEfficiency": "simplicité et efficacité",
 
-  "credentials": "est une marque de la société WealthHealth. Tous droits réservés"
+  "credentials": "est une marque de la société WealthHealth. Tous droits réservés",
+
+  "curentEmployees": "Employés actuels",
+
+  "civilInformation": "Informations civiles",
+  "address": "Adresse",
+
+  "firstName": "Prénom",
+  "lastName": "Nom",
+  "dateOfBirth": "Date de naissance",
+  "startDate": "Date de début",
+  "street": "Rue",
+  "city": "Ville",
+  "state": "Département",
+  "zipCode": "Code postal",
+  "department": "Service",
+  "home": "Accueil",
+  "save": "Enregistrer"
 }

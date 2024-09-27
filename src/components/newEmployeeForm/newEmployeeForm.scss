@@ -1,0 +1,93 @@
+@use '../../utils/styles/variables' as vars;
+@use '../../utils/styles/mixins' as mixins;
+
+#newEmployeeForm {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  @media (max-width: vars.$tabletWidth) {
+    width: 85%;
+  }
+}
+
+#newEmployeeForm .topSection {
+  display: flex;
+  gap: 10em;
+  @media (max-width: vars.$tabletWidth) {
+    flex-flow: column;
+    gap: 1em;
+    width: 100%;
+  }
+}
+
+#newEmployeeForm .bottomSection {
+  display: flex;
+  flex-flow: column;
+  width: 50%;
+  @media (max-width: vars.$tabletWidth) {
+    margin-top: 1em;
+    margin-bottom: 2em;
+  }
+}
+
+#newEmployeeForm h3 {
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+#newEmployeeForm .leftSide,
+#newEmployeeForm .rightSide {
+  @include mixins.formCard;
+}
+
+#newEmployeeForm .inputWrapper {
+  display: flex;
+  flex-flow: column;
+  gap: 0.3em;
+}
+
+#newEmployeeForm .inputWrapper input {
+  border: 1px solid vars.$fontColorPrimary;
+  padding: 0.5em;
+  background: adjust-color(vars.$greyBackground, $lightness: 10%);
+  margin-bottom: 1.5em;
+  width: 100%;
+}
+
+#newEmployeeForm .bottomSection {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+#newEmployeeForm .bottomSection label {
+  text-align: center;
+}
+
+#newEmployeeForm .bottomSection select {
+  width: 150px;
+}
+
+#newEmployeeForm .buttonWrapper {
+  display: flex;
+  gap: 4em;
+}
+
+#newEmployeeForm .bottomSection button {
+  width: 150px;
+  cursor: pointer;
+}
+
+#newEmployeeForm .bottomSection .returnButton {
+  @include mixins.errorButton;
+}
+
+.buttonDisabled {
+  @include mixins.buttonDisabled;
+}
+
+.buttonEnabled {
+  @include mixins.buttonEnabled;
+}

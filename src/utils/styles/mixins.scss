@@ -1,1 +1,79 @@
 @use './variables' as vars;
+
+@mixin mainLayout {
+  min-height: 81dvh;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  background: vars.$greyBackground;
+}
+
+@mixin h2WithUnderline {
+  font-size: 2em;
+  font-weight: 700;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -0.1em;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(
+      to right,
+      adjust-color(vars.$brandColor, $lightness: 30%),
+      adjust-color(vars.$darkerBrandColor, $lightness: 20%)
+    );
+  }
+}
+
+@mixin formCard {
+  border: 2px solid vars.$fontColorPrimary;
+  border-radius: 8px;
+  padding: 1em;
+  background: #ffffff;
+  width: 400px;
+  @media (max-width: vars.$tabletWidth) {
+    margin: auto;
+    width: 60%;
+  }
+  @media (max-width: vars.$mobileWidth) {
+    width: 100%;
+  }
+}
+
+@mixin buttonDisabled {
+  width: 150px;
+  text-align: center;
+  background: adjust-color(vars.$greyBackground, $lightness: -10%);
+  border: 1px solid vars.$fontColorPrimary;
+  cursor: not-allowed !important;
+  padding: 0.3em 0.5em;
+}
+
+@mixin buttonEnabled {
+  width: 150px;
+  text-align: center;
+  background: linear-gradient(
+    to right,
+    adjust-color(vars.$brandColor, $lightness: 30%),
+    adjust-color(vars.$darkerBrandColor, $lightness: 20%)
+  );
+  border: 1px solid vars.$fontColorPrimary;
+  cursor: pointer;
+  padding: 0.3em 0.5em;
+}
+
+@mixin errorButton {
+  width: 150px;
+  text-align: center;
+  background: #F6F6F6;
+  color: vars.$fontColorPrimary;
+  border: 1px solid vars.$fontColorPrimary;
+  cursor: pointer;
+  padding: 0.3em 0.5em;
+}

@@ -2,11 +2,7 @@
 @use '../../utils/styles/mixins' as mixins;
 
 #homePage {
-  max-height: 82dvh;
-  @media (max-width: vars.$tabletWidth) {
-    min-height: unset;
-    max-height: unset;
-  }
+  @include mixins.mainLayout;
 }
 
 #homePage figure {
@@ -32,7 +28,7 @@
   background: #ffffff;
   display: flex;
   flex-flow: column;
-  gap: .2em;
+  gap: 0.2em;
   @media (max-width: vars.$laptopWidth) {
     padding: 1rem;
     width: 450px;

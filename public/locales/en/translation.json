@@ -12,5 +12,22 @@
   "streamlineYourHumanResourceManagement": "Streamline your human resource management with",
   "simplicityAndEfficiency": "simplicity and efficiency",
 
-  "credentials": "is a brand of the WealthHealth company. All right reserved"
+  "credentials": "is a brand of the WealthHealth company. All right reserved",
+
+  "curentEmployees": "Current Employees",
+
+  "civilInformation": "Civil Information",
+  "address": "Address",
+
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "dateOfBirth": "Date of Birth",
+  "startDate": "Start Date",
+  "street": "Street",
+  "city": "City",
+  "state": "State",
+  "zipCode": "Zip Code",
+  "department": "Department",
+  "home": "Home",
+  "save": "Save"
 }

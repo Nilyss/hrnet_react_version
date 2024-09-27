@@ -1,12 +1,12 @@
 @use '../../utils/styles/variables' as vars;
 @use '../../utils/styles/mixins' as mixins;
 
-#createEmployee {
+#currentEmployees {
   @include mixins.mainLayout;
 }
 
-#createEmployee h2 {
-  margin-bottom: 2em;
+#currentEmployees h2 {
+  margin-bottom: 1em;
   @include mixins.h2WithUnderline;
   @media (max-width: vars.$tabletWidth) {
     margin: 1em;
