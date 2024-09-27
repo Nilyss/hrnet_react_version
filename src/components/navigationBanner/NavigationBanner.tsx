@@ -11,8 +11,11 @@ import { ReactElement } from 'react'
 // hooks | libraries
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export default function NavigationBanner(): ReactElement {
+  const { t } = useTranslation()
+
   const mobileWidth = 768
   const location = useLocation()
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
@@ -64,14 +67,14 @@ export default function NavigationBanner(): ReactElement {
           }
           onClick={onLinkClick}
         >
-          View Current Employees
+          {t('viewCurrentEmployees')}
         </Link>
         <Link
           to="/createEmployee"
           className={location.pathname === '/createEmployee' ? 'active' : ''}
           onClick={onLinkClick}
         >
-          Create Employee
+          {t('createEmployee')}
         </Link>
       </div>
     )

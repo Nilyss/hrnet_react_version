@@ -10,7 +10,11 @@ import backgroundImage768 from '../../assets/images/homeBgnd-768.webp'
 // types
 import { ReactElement } from 'react'
 
+// hooks | libraries
+import { useTranslation } from 'react-i18next'
+
 export default function HomePage(): ReactElement {
+  const { t } = useTranslation()
   return (
     <main id={'homePage'}>
       <figure>
@@ -31,19 +35,19 @@ export default function HomePage(): ReactElement {
       </figure>
       <section className={'homePageContent'}>
         <h2>
-          Welcome to <span className={'brandColor'}>HR</span>net !
+          {t('welcomeTo')} <span className={'brandColor'}>HR</span>net !
         </h2>
         <p>
-          <span className={'brandColor'}>HR</span>net allows you to easily
-          manage your employees in <strong>one place</strong>.
+          <span className={'brandColor'}>HR</span>net {t('allowsYouTo')}{' '}
+          <strong>{t('onePlace')}</strong>.
         </p>
         <p>
-          View all <strong>essential information</strong> and add new team
-          members with just a few clicks.
+          {t('viewAll')} <strong>{t('essentialInformation')}</strong> {''}
+          {t('andAddNewTeamMembers')}.
         </p>
         <p>
-          Streamline your human resource management with{' '}
-          <strong>simplicity and efficiency</strong>.
+          {t('streamlineYourHumanResourceManagement')}{' '}
+          <strong>{t('simplicityAndEfficiency')}</strong>.
         </p>
       </section>
     </main>
