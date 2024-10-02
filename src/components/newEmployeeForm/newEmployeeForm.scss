@@ -81,7 +81,7 @@
 }
 
 #newEmployeeForm .bottomSection .returnButton {
-  @include mixins.errorButton;
+  @include mixins.button;
 }
 
 .buttonDisabled {
