@@ -15,12 +15,21 @@ export default function Tlr({ datas }: ITlrProps): ReactElement {
     key: number
     direction: string
   } | null>(null)
+  const [searchTerm, setSearchTerm] = useState<string>('')
+
+  const removeAccents: (string: string) => string = (
+    string: string,
+  ): string => {
+    return string.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  }
 
   const sortedData: string[][] | undefined = useMemo(():
     | string[][]
     | undefined => {
+    let sortableData: string[][] = [...datas.tableBody]
+
     if (sortConfig !== null) {
-      return [...datas.tableBody].sort((a: string[], b: string[]): number => {
+      sortableData = sortableData.sort((a: string[], b: string[]): number => {
         const aValue: string = a[sortConfig.key]
         const bValue: string = b[sortConfig.key]
 
@@ -39,8 +48,23 @@ export default function Tlr({ datas }: ITlrProps): ReactElement {
         }
       })
     }
-    return datas.tableBody
-  }, [datas.tableBody, sortConfig])
+
+    if (searchTerm.length > 0) {
+      return sortableData.filter((row: string[]): boolean => {
+        return row.some((cell: string): boolean => {
+          return removeAccents(cell.toLowerCase()).includes(
+            removeAccents(searchTerm.toLowerCase()),
+          )
+        })
+      })
+    }
+
+    return sortableData.filter((row: string[]): boolean => {
+      return row.some((cell: string): boolean => {
+        return cell.toLowerCase().includes(searchTerm.toLowerCase())
+      })
+    })
+  }, [datas.tableBody, sortConfig, searchTerm])
 
   const totalPages: number = Math.ceil(sortedData!.length / itemsPerPage)
 
@@ -77,12 +101,19 @@ export default function Tlr({ datas }: ITlrProps): ReactElement {
     setSortConfig({ key, direction })
   }
 
+  const handleSearchChange: (event: ChangeEvent<HTMLInputElement>) => void = (
+    event: ChangeEvent<HTMLInputElement>,
+  ): void => {
+    setSearchTerm(event.target.value)
+    setPage(1)
+  }
+
   return (
     <section id={'TLR'}>
-      {sortedData && sortedData.length > 0 && (
-        <>
-          <div className={'tableHeader'}>
-            <label htmlFor={'itemsPerPage'}>Items per page:</label>
+      <>
+        <div className={'tableHeader'}>
+          <div className={'selectContainer'}>
+            <label htmlFor={'itemsPerPage'}>Show</label>
             <select
               id={'itemsPerPage'}
               value={itemsPerPage}
@@ -92,77 +123,91 @@ export default function Tlr({ datas }: ITlrProps): ReactElement {
               <option value={50}>50</option>
               <option value={100}>100</option>
             </select>
+            <label htmlFor={'itemsPerPage'}>entries</label>
           </div>
+          <div className={'searchContainer'}>
+            <label htmlFor={'filter'}>Search: </label>
+            <input id={'filter'} type={'text'} onChange={handleSearchChange} />
+          </div>
+        </div>
 
-          <table>
-            <thead>
-              <tr>
-                {datas.tableHead.map(
-                  (head: string, index: number): ReactElement => (
-                    <th key={index} onClick={(): void => requestSort(index)}>
-                      {head}
+        <table>
+          <thead>
+            <tr>
+              {datas.tableHead.map(
+                (head: string, index: number): ReactElement => (
+                  <th key={index} onClick={(): void => requestSort(index)}>
+                    {head}
 
-                      <span
-                        className={`chevron ${sortConfig?.key === index && sortConfig.direction === 'ascending' ? 'chevron-active' : ''}`}
-                      >
-                        <svg width="12" height="12" viewBox="0 0 20 20">
-                          <polyline points="5,15 10,5 15,15" strokeWidth="2" />
-                        </svg>
-                      </span>
-                      <span
-                        className={`chevron ${sortConfig?.key === index && sortConfig.direction === 'descending' ? 'chevron-active' : ''}`}
-                      >
-                        <svg width="12" height="12" viewBox="0 0 20 20">
-                          <polyline points="5,5 10,15 15,5" strokeWidth="2" />
-                        </svg>
-                      </span>
-                    </th>
-                  ),
-                )}
-              </tr>
-            </thead>
-
-            <tbody>
-              {sortedData && (
-                <>
-                  {currentData.map(
-                    (body: string[], index: number): ReactElement => (
-                      <tr key={index}>
-                        {body.map(
-                          (cell: string, cellIndex: number): ReactElement => (
-                            <td key={cellIndex}>{cell}</td>
-                          ),
-                        )}
-                      </tr>
-                    ),
-                  )}
-                </>
+                    <span
+                      className={`chevron ${sortConfig?.key === index && sortConfig.direction === 'ascending' ? 'chevron-active' : ''}`}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 20 20">
+                        <polyline points="5,15 10,5 15,15" strokeWidth="2" />
+                      </svg>
+                    </span>
+                    <span
+                      className={`chevron ${sortConfig?.key === index && sortConfig.direction === 'descending' ? 'chevron-active' : ''}`}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 20 20">
+                        <polyline points="5,5 10,15 15,5" strokeWidth="2" />
+                      </svg>
+                    </span>
+                  </th>
+                ),
               )}
-            </tbody>
-          </table>
-          <div className={'tableFooter'}>
+            </tr>
+          </thead>
+          <tbody>
+            {currentData.length > 0 ? (
+              currentData.map(
+                (body: string[], index: number): ReactElement => (
+                  <tr key={index}>
+                    {body.map(
+                      (cell: string, cellIndex: number): ReactElement => (
+                        <td key={cellIndex}>{cell}</td>
+                      ),
+                    )}
+                  </tr>
+                ),
+              )
+            ) : (
+              <tr>
+                <td
+                  colSpan={datas.tableHead.length}
+                  style={{ textAlign: 'center' }}
+                >
+                  No data available in table
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+        <div className={'tableFooter'}>
+          {sortedData && (
             <p>
-              Showing {currentData.length} of {sortedData.length} entries
+              Showing {Math.min(page * itemsPerPage, sortedData.length)}/
+              {sortedData.length} entries
             </p>
-            <div className={'buttonContainer'}>
-              <button
-                className={'button'}
-                onClick={handlePreviousPage}
-                disabled={page === 1}
-              >
-                Previous
-              </button>
-              <button
-                className={'button'}
-                onClick={handleNextPage}
-                disabled={page === totalPages}
-              >
-                Next
-              </button>
-            </div>
+          )}
+          <div className={'buttonContainer'}>
+            <button
+              className={'button'}
+              onClick={handlePreviousPage}
+              disabled={page === 1}
+            >
+              Previous
+            </button>
+            <button
+              className={'button'}
+              onClick={handleNextPage}
+              disabled={page === totalPages}
+            >
+              Next
+            </button>
           </div>
-        </>
-      )}
+        </div>
+      </>
     </section>
   )
 }
