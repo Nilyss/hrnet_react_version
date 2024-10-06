@@ -6,6 +6,7 @@
 }
 
 #currentEmployees h2 {
+  margin-top: .5em;
   margin-bottom: 1em;
   @include mixins.h2WithUnderline;
   @media (max-width: vars.$tabletWidth) {
