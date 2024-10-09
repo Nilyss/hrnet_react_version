@@ -58,7 +58,16 @@ export default function CurrentEmployees(): ReactElement {
   return (
     <main id="currentEmployees">
       {/*<h2>{t('currentEmployees')}</h2>*/}
-      {employees && <Tlr datas={table} />}
+      {employees && (
+        <Tlr
+          datas={table}
+          showSearchBar={true}
+          showItemsPerPageSelector={true}
+          showPagination={true}
+          showPreviousNextButtons={true}
+          enableColumnSorting={true}
+        />
+      )}
     </main>
   )
 }

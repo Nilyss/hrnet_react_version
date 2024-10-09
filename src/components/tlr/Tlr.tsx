@@ -2,15 +2,34 @@
 import './tlr.scss'
 
 // types
-import { ReactElement, ChangeEvent } from 'react'
+import { ReactElement, ChangeEvent, CSSProperties } from 'react'
 import { ITlrProps } from '../../utils/interface/tlr.ts'
 
 // hooks
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 
-export default function Tlr({ datas }: ITlrProps): ReactElement {
+export default function Tlr({
+  datas,
+  headerBackgroundColor,
+  headerHoverBackgroundColor,
+  textColor,
+  rowColor,
+  rowHoverColor,
+  hoverTextColor,
+  columnSortingColor,
+  columnSortingFullFilledColor,
+  disabledButtonColor,
+  showSearchBar,
+  showItemsPerPageSelector,
+  showPagination,
+  showPreviousNextButtons,
+  enableColumnSorting,
+  itemsPerPageOptions = [25, 50, 100],
+}: ITlrProps): ReactElement {
   const [page, setPage] = useState<number>(1)
-  const [itemsPerPage, setItemsPerPage] = useState<number>(25)
+  const [itemsPerPage, setItemsPerPage] = useState<number>(
+    itemsPerPageOptions[0],
+  )
   const [sortConfig, setSortConfig] = useState<{
     key: number
     direction: string
@@ -69,9 +88,13 @@ export default function Tlr({ datas }: ITlrProps): ReactElement {
   const totalPages: number = Math.ceil(sortedData!.length / itemsPerPage)
 
   const currentData: string[][] = useMemo((): string[][] => {
-    const startIndex: number = (page - 1) * itemsPerPage
-    const endIndex: number = startIndex + itemsPerPage
-    return sortedData!.slice(startIndex, endIndex)
+    if (showPagination) {
+      const startIndex: number = (page - 1) * itemsPerPage
+      const endIndex: number = startIndex + itemsPerPage
+      return sortedData!.slice(startIndex, endIndex)
+    } else {
+      return sortedData!
+    }
   }, [sortedData, page, itemsPerPage])
 
   const handlePreviousPage: () => void = (): void => {
@@ -108,27 +131,56 @@ export default function Tlr({ datas }: ITlrProps): ReactElement {
     setPage(1)
   }
 
+  useEffect(() => {
+    if (!itemsPerPageOptions.includes(itemsPerPage)) {
+      setItemsPerPage(itemsPerPageOptions[0])
+    }
+  }, [itemsPerPageOptions, itemsPerPage])
+
   return (
-    <section id={'TLR'}>
+    <section
+      id={'TLR'}
+      style={
+        {
+          '--header-bg-color': headerBackgroundColor,
+          '--header-hover-bg-color': headerHoverBackgroundColor,
+          '--row-color': rowColor,
+          '--row-hover-color': rowHoverColor,
+          '--text-color': textColor,
+          '--hover-text-color': hoverTextColor,
+          '--disabled-button-color': disabledButtonColor,
+          '--columnSortingColor': columnSortingColor,
+          '--columnSortingFullFilledColor': columnSortingFullFilledColor,
+        } as CSSProperties
+      }
+    >
       <>
         <div className={'tableHeader'}>
-          <div className={'selectContainer'}>
-            <label htmlFor={'itemsPerPage'}>Show</label>
-            <select
-              id={'itemsPerPage'}
-              value={itemsPerPage}
-              onChange={handleItemsPerPageChange}
-            >
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-              <option value={100}>100</option>
-            </select>
-            <label htmlFor={'itemsPerPage'}>entries</label>
-          </div>
-          <div className={'searchContainer'}>
-            <label htmlFor={'filter'}>Search: </label>
-            <input id={'filter'} type={'text'} onChange={handleSearchChange} />
-          </div>
+          {showItemsPerPageSelector && itemsPerPageOptions.length > 0 && (
+            <div className="selectContainer">
+              <label htmlFor="itemsPerPage">Show</label>
+              <select
+                id="itemsPerPage"
+                value={itemsPerPage}
+                onChange={handleItemsPerPageChange}
+              >
+                {itemsPerPageOptions.map(
+                  (optionValue: number): ReactElement => (
+                    <option key={optionValue} value={optionValue}>
+                      {optionValue}
+                    </option>
+                  ),
+                )}
+              </select>
+              <label htmlFor="itemsPerPage">entries</label>
+            </div>
+          )}
+          {showSearchBar && (
+            <div className="searchContainer">
+              <label htmlFor="filter">Search: </label>
+              <input id="filter" type="text" onChange={handleSearchChange} />
+            </div>
+          )}
         </div>
 
         <table>
@@ -136,24 +188,49 @@ export default function Tlr({ datas }: ITlrProps): ReactElement {
             <tr>
               {datas.tableHead.map(
                 (head: string, index: number): ReactElement => (
-                  <th key={index} onClick={(): void => requestSort(index)}>
+                  <th
+                    key={index}
+                    onClick={
+                      enableColumnSorting
+                        ? (): void => requestSort(index)
+                        : undefined
+                    }
+                    style={{
+                      cursor: enableColumnSorting ? 'pointer' : 'default',
+                    }}
+                  >
                     {head}
-                    <div>
-                      <span
-                        className={`chevron ${sortConfig?.key === index && sortConfig.direction === 'ascending' ? 'chevron-active' : ''}`}
-                      >
-                        <svg width="12" height="12" viewBox="0 0 20 20">
-                          <polyline points="5,15 10,5 15,15" strokeWidth="2" />
-                        </svg>
-                      </span>
-                      <span
-                        className={`chevron ${sortConfig?.key === index && sortConfig.direction === 'descending' ? 'chevron-active' : ''}`}
-                      >
-                        <svg width="12" height="12" viewBox="0 0 20 20">
-                          <polyline points="5,5 10,15 15,5" strokeWidth="2" />
-                        </svg>
-                      </span>
-                    </div>
+                    {enableColumnSorting && (
+                      <div>
+                        <span
+                          className={`chevron ${
+                            sortConfig?.key === index &&
+                            sortConfig.direction === 'ascending'
+                              ? 'chevron-active'
+                              : ''
+                          }`}
+                        >
+                          <svg width="12" height="12" viewBox="0 0 20 20">
+                            <polyline
+                              points="5,15 10,5 15,15"
+                              strokeWidth="2"
+                            />
+                          </svg>
+                        </span>
+                        <span
+                          className={`chevron ${
+                            sortConfig?.key === index &&
+                            sortConfig.direction === 'descending'
+                              ? 'chevron-active'
+                              : ''
+                          }`}
+                        >
+                          <svg width="12" height="12" viewBox="0 0 20 20">
+                            <polyline points="5,5 10,15 15,5" strokeWidth="2" />
+                          </svg>
+                        </span>
+                      </div>
+                    )}
                   </th>
                 ),
               )}
@@ -184,30 +261,34 @@ export default function Tlr({ datas }: ITlrProps): ReactElement {
             )}
           </tbody>
         </table>
-        <div className={'tableFooter'}>
-          {sortedData && (
-            <p>
-              Showing {Math.min(page * itemsPerPage, sortedData.length)}/
-              {sortedData.length} entries
-            </p>
-          )}
-          <div className={'buttonContainer'}>
-            <button
-              className={'button'}
-              onClick={handlePreviousPage}
-              disabled={page === 1}
-            >
-              Previous
-            </button>
-            <button
-              className={'button'}
-              onClick={handleNextPage}
-              disabled={page === totalPages}
-            >
-              Next
-            </button>
+        {showPagination && (
+          <div className="tableFooter">
+            {sortedData && (
+              <p>
+                Showing {Math.min(page * itemsPerPage, sortedData.length)}/
+                {sortedData.length} entries
+              </p>
+            )}
+            {showPreviousNextButtons && (
+              <div className="buttonContainer">
+                <button
+                  className="button"
+                  onClick={handlePreviousPage}
+                  disabled={page === 1}
+                >
+                  Previous
+                </button>
+                <button
+                  className="button"
+                  onClick={handleNextPage}
+                  disabled={page === totalPages}
+                >
+                  Next
+                </button>
+              </div>
+            )}
           </div>
-        </div>
+        )}
       </>
     </section>
   )
