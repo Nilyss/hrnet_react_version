@@ -12,7 +12,7 @@ export const getEmployeesService: () => Promise<
   IEmployee[]
 > = async (): Promise<IEmployee[]> => {
   const endpoint: string = isOnProduction()
-    ? '/api/v1/employee/list'
+    ? '/employeesMock.JSON'
     : '/employeesMock.json'
 
   const res: AxiosResponse = await getRequest(endpoint)

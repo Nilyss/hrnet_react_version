@@ -57,7 +57,7 @@ export default function CurrentEmployees(): ReactElement {
 
   return (
     <main id="currentEmployees">
-      <h2>{t('currentEmployees')}</h2>
+      {/*<h2>{t('currentEmployees')}</h2>*/}
       {employees && <Tlr datas={table} />}
     </main>
   )

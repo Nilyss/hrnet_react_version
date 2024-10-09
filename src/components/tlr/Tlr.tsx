@@ -138,21 +138,22 @@ export default function Tlr({ datas }: ITlrProps): ReactElement {
                 (head: string, index: number): ReactElement => (
                   <th key={index} onClick={(): void => requestSort(index)}>
                     {head}
-
-                    <span
-                      className={`chevron ${sortConfig?.key === index && sortConfig.direction === 'ascending' ? 'chevron-active' : ''}`}
-                    >
-                      <svg width="12" height="12" viewBox="0 0 20 20">
-                        <polyline points="5,15 10,5 15,15" strokeWidth="2" />
-                      </svg>
-                    </span>
-                    <span
-                      className={`chevron ${sortConfig?.key === index && sortConfig.direction === 'descending' ? 'chevron-active' : ''}`}
-                    >
-                      <svg width="12" height="12" viewBox="0 0 20 20">
-                        <polyline points="5,5 10,15 15,5" strokeWidth="2" />
-                      </svg>
-                    </span>
+                    <div>
+                      <span
+                        className={`chevron ${sortConfig?.key === index && sortConfig.direction === 'ascending' ? 'chevron-active' : ''}`}
+                      >
+                        <svg width="12" height="12" viewBox="0 0 20 20">
+                          <polyline points="5,15 10,5 15,15" strokeWidth="2" />
+                        </svg>
+                      </span>
+                      <span
+                        className={`chevron ${sortConfig?.key === index && sortConfig.direction === 'descending' ? 'chevron-active' : ''}`}
+                      >
+                        <svg width="12" height="12" viewBox="0 0 20 20">
+                          <polyline points="5,5 10,15 15,5" strokeWidth="2" />
+                        </svg>
+                      </span>
+                    </div>
                   </th>
                 ),
               )}

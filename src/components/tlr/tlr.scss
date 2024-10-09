@@ -6,7 +6,8 @@
   flex-flow: column;
   align-items: center;
   justify-content: center;
-  font-size: 1dvw;
+  font-size: 12px;
+  margin-top: 2em;
 }
 
 #TLR .tableHeader {
@@ -45,12 +46,13 @@
   border-spacing: 0;
   background: vars.$brandColorGradient;
   border-radius: 10px;
+  table-layout: fixed;
 }
 
 #TLR thead th {
   padding: 10px;
   text-align: center;
-  white-space: nowrap;
+  position: relative;
 }
 
 #TLR thead th:hover {
@@ -68,7 +70,6 @@
 }
 
 #TLR thead th .chevron {
-  margin-left: 0.5em;
   stroke: #dcdcdc;
   fill: #dcdcdc;
 }
@@ -81,6 +82,24 @@
 #TLR thead th div {
   display: flex;
   flex-flow: column;
+  position: absolute;
+  right: 1.3dvw;
+  top: 0;
+}
+
+#TLR thead th div > span:first-child {
+  position: absolute;
+  bottom: -25.2px;
+}
+
+#TLR thead th div > span:last-child {
+  position: absolute;
+  top: 17px;
+}
+
+#TLR thead th div span svg {
+  width: 1.2dvw;
+  height: 1.2dvh;
 }
 
 #TLR tbody tr {
@@ -104,8 +123,7 @@ table tbody tr:hover {
 }
 
 table tbody td {
-  width: fit-content;
-  white-space: nowrap;
+  max-width: 200px;
 }
 
 #TLR tbody tr:last-child td:first-child {

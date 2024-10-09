@@ -63,7 +63,7 @@ export default function NavigationBanner(): ReactElement {
         <Link
           to="/current_employees"
           className={
-            location.pathname === '/viewCurrentEmployees' ? 'active' : ''
+            location.pathname === '/current_employees' ? 'active' : ''
           }
           onClick={onLinkClick}
         >
@@ -71,7 +71,7 @@ export default function NavigationBanner(): ReactElement {
         </Link>
         <Link
           to="/create_employee"
-          className={location.pathname === '/createEmployee' ? 'active' : ''}
+          className={location.pathname === '/create_employee' ? 'active' : ''}
           onClick={onLinkClick}
         >
           {t('createEmployee')}
