@@ -1,12 +1,12 @@
 // utils
-import { isOnProduction } from '../../utils/utils.ts'
+import { isOnProduction } from '../../../utils/utils.ts'
 
 // types
 import { AxiosResponse } from 'axios'
 
 // API
-import { getRequest } from '../../API/APICalls.ts'
-import { IEmployee } from '../../utils/interface/employee.ts'
+import { getRequest } from '../../APICalls.ts'
+import { IEmployee } from '../../../utils/interface/employee.ts'
 
 export const getEmployeesService: () => Promise<
   IEmployee[]

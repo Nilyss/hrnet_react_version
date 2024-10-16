@@ -29,5 +29,7 @@
   "zipCode": "Zip Code",
   "department": "Department",
   "home": "Home",
-  "save": "Save"
+  "save": "Save",
+
+  "tableLang": "En"
 }

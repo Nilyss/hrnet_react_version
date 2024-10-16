@@ -23,48 +23,54 @@ export default function NavigationBanner(): ReactElement {
     window.innerWidth < mobileWidth,
   )
 
-  const handleResize = () => {
+  const handleResize: () => void = (): void => {
     setIsMobile(window.innerWidth < mobileWidth)
   }
 
-  const handleMenuClick = () => {
+  const handleMenuClick: () => void = (): void => {
     setIsMenuOpen(!isMenuOpen)
   }
 
-  const handleLinkClick = () => {
+  const handleLinkClick: () => void = (): void => {
     if (isMobile) {
       setIsMenuOpen(false)
     }
   }
 
-  useEffect(() => {
+  useEffect((): (() => void) => {
     window.addEventListener('resize', handleResize)
-    return () => {
+    return (): void => {
       window.removeEventListener('resize', handleResize)
     }
   }, [])
 
   // disable scrolling when menu is open on mobile
-  useEffect(() => {
+  useEffect((): (() => void) => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'auto'
     }
 
-    return () => {
+    return (): void => {
       document.body.style.overflow = 'auto'
     }
   }, [isMenuOpen])
 
-  const NavLinks = ({ onLinkClick = () => {} }): ReactElement => {
+  const NavLinks: ({
+    onLinkClick,
+  }: {
+    onLinkClick?: () => void
+  }) => ReactElement = ({
+    onLinkClick = (): void => {},
+  }: {
+    onLinkClick?: () => void
+  }): ReactElement => {
     return (
       <div className="linksContainer">
         <Link
           to="/current_employees"
-          className={
-            location.pathname === '/current_employees' ? 'active' : ''
-          }
+          className={location.pathname === '/current_employees' ? 'active' : ''}
           onClick={onLinkClick}
         >
           {t('viewCurrentEmployees')}

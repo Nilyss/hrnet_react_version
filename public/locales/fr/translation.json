@@ -29,5 +29,7 @@
   "zipCode": "Code postal",
   "department": "Service",
   "home": "Accueil",
-  "save": "Enregistrer"
+  "save": "Enregistrer",
+
+  "tableLang": "Fr"
 }

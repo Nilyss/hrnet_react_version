@@ -1,13 +1,13 @@
 // styles
 import './currentEmployees.scss'
+import 'nillys-react-table-library/style'
 
 // types
 import { ReactElement } from 'react'
 import { IEmployee } from '../../utils/interface/employee.ts'
-import { ITlr } from '../../utils/interface/tlr.ts'
 
 // hooks | library
-import Tlr from '../../components/tlr/Tlr.tsx'
+import { NRTL } from 'nillys-react-table-library' //https://www.npmjs.com/package/nillys-react-table-library
 import { useEffect, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -50,22 +50,32 @@ export default function CurrentEmployees(): ReactElement {
       ])
     : []
 
-  const table: ITlr = {
+  const table = {
     tableHead,
     tableBody,
   }
 
   return (
     <main id="currentEmployees">
-      {/*<h2>{t('currentEmployees')}</h2>*/}
       {employees && (
-        <Tlr
+        <NRTL
           datas={table}
+          headerBackgroundColor={'linear-gradient(to left, #d5e065, #a8c24e)'}
+          headerHoverBackgroundColor={'#a8c24e'}
+          textColor={'#36395a'}
+          rowColor={'#ffffff'}
+          rowHoverColor={'#36395a'}
+          hoverTextColor={'#ffffff'}
+          disabledButtonColor={'#dcdcdc'}
+          columnSortingColor={'#dcdcdc'}
+          columnSortingFullFilledColor={'#36395a'}
           showSearchBar={true}
           showItemsPerPageSelector={true}
           showPagination={true}
           showPreviousNextButtons={true}
           enableColumnSorting={true}
+          itemsPerPageOptions={[25, 50, 100]}
+          language={t('tableLang')}
         />
       )}
     </main>

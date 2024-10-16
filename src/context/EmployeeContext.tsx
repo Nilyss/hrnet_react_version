@@ -7,7 +7,7 @@ interface IEmployeeContext {
 }
 
 // services
-import { getEmployeesService } from '../services/employee/getEmployee.service.ts'
+import { getEmployeesService } from '../API/services/employee/getEmployee.service.ts'
 
 export const EmployeeContext: Context<IEmployeeContext> =
   createContext<IEmployeeContext>({
