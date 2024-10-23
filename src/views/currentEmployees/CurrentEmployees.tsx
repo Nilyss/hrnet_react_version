@@ -1,3 +1,6 @@
+// utils
+import { convertDateToFr, convertDateToEn } from '../../utils/utils.ts'
+
 // styles
 import './currentEmployees.scss'
 import 'nillys-react-table-library/style'
@@ -16,7 +19,7 @@ import { EmployeeContext } from '../../context/EmployeeContext.tsx'
 
 export default function CurrentEmployees(): ReactElement {
   const { employees, getEmployees } = useContext(EmployeeContext)
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   useEffect((): void => {
     if (!employees) {
@@ -40,9 +43,13 @@ export default function CurrentEmployees(): ReactElement {
     ? employees.map((employee: IEmployee): string[] => [
         employee.firstName,
         employee.lastName,
-        employee.startDate,
+        i18n.language === 'en'
+          ? convertDateToEn(employee.startDate)
+          : convertDateToFr(employee.startDate),
         employee.department,
-        employee.dateOfBirth,
+        i18n.language === 'en'
+          ? convertDateToEn(employee.dateOfBirth)
+          : convertDateToFr(employee.dateOfBirth),
         employee.street,
         employee.city,
         employee.state,

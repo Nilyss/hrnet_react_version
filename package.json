@@ -15,7 +15,7 @@
     "i18next": "^23.15.1",
     "i18next-browser-languagedetector": "^8.0.0",
     "i18next-http-backend": "^2.6.1",
-    "nillys-react-table-library": "^1.1.0",
+    "nillys-react-table-library": "^1.1.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.0.2",
@@ -32,7 +32,8 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
-    "sass": "^1.79.3",
+    "prettier": "^3.3.3",
+    "sass": "^1.80.3",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
