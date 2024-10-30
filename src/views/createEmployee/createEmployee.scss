@@ -3,12 +3,5 @@
 
 #createEmployee {
   @include mixins.mainLayout;
-}
-
-#createEmployee h2 {
-  margin-bottom: 2em;
-  @include mixins.h2WithUnderline;
-  @media (max-width: vars.$tabletWidth) {
-    margin: 1em;
-  }
+  padding: 2rem;
 }

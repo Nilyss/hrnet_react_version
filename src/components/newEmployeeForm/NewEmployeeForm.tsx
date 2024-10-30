@@ -6,7 +6,6 @@ import { ReactElement } from 'react'
 
 // hooks | libraries
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 
 export default function NewEmployeeForm(): ReactElement {
   const { t } = useTranslation()
@@ -101,9 +100,6 @@ export default function NewEmployeeForm(): ReactElement {
           <button className={'buttonDisabled'} type={'submit'} disabled={true}>
             {t('save')}
           </button>
-          <Link to={'/'} className={'returnButton'}>
-            {t('home')}
-          </Link>
         </div>
       </div>
     </form>

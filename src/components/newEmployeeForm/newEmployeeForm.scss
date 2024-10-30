@@ -7,14 +7,25 @@
   align-items: center;
   justify-content: center;
   gap: 0.5em;
+  width: 100%;
+  padding: 1em;
+  border: 2px solid vars.$fontColorPrimary;
+  border-radius: 8px;
+  background: #ffffff;
   @media (max-width: vars.$tabletWidth) {
     width: 85%;
+  }
+  @media (max-width: vars.$mobileWidth) {
+    width: 100%;
   }
 }
 
 #newEmployeeForm .topSection {
   display: flex;
-  gap: 10em;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+
   @media (max-width: vars.$tabletWidth) {
     flex-flow: column;
     gap: 1em;
@@ -39,21 +50,44 @@
 
 #newEmployeeForm .leftSide,
 #newEmployeeForm .rightSide {
-  @include mixins.formCard;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  width: 46%;
+  @media (max-width: vars.$tabletWidth) {
+    width: 100%;
+  }
 }
 
 #newEmployeeForm .inputWrapper {
   display: flex;
   flex-flow: column;
-  gap: 0.3em;
+  align-items: center;
+  @media (max-width: vars.$tabletWidth) {
+    padding: 0 4rem;
+  }
+  @media (max-width: vars.$mobileWidth) {
+    padding: 0 .5rem;
+  }
+}
+
+#newEmployeeForm .inputWrapper label {
+  width: 50%;
+  @media (max-width: vars.$tabletWidth) {
+    width: 100%;
+  }
 }
 
 #newEmployeeForm .inputWrapper input {
   border: 1px solid vars.$fontColorPrimary;
   padding: 0.5em;
   background: adjust-color(vars.$greyBackground, $lightness: 10%);
-  margin-bottom: 1.5em;
-  width: 100%;
+  margin-bottom: 1em;
+  width: 50%;
+  height: 30px;
+  @media (max-width: vars.$tabletWidth) {
+    width: 100%;
+  }
 }
 
 #newEmployeeForm .bottomSection {
@@ -64,6 +98,7 @@
 
 #newEmployeeForm .bottomSection label {
   text-align: center;
+  width: 100%;
 }
 
 #newEmployeeForm .bottomSection select {

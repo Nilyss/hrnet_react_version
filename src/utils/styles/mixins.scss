@@ -27,21 +27,6 @@
   //}
 }
 
-@mixin formCard {
-  border: 2px solid vars.$fontColorPrimary;
-  border-radius: 8px;
-  padding: 1em;
-  background: #ffffff;
-  width: 400px;
-  @media (max-width: vars.$tabletWidth) {
-    margin: auto;
-    width: 60%;
-  }
-  @media (max-width: vars.$mobileWidth) {
-    width: 100%;
-  }
-}
-
 @mixin buttonDisabled {
   width: 150px;
   text-align: center;
