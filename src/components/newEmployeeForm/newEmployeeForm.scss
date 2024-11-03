@@ -73,6 +73,7 @@
 
 #newEmployeeForm .inputWrapper label {
   width: 50%;
+  font-size: 12px;
   @media (max-width: vars.$tabletWidth) {
     width: 100%;
   }
@@ -85,6 +86,7 @@
   margin-bottom: 1em;
   width: 50%;
   height: 30px;
+  font-size: 12px;
   @media (max-width: vars.$tabletWidth) {
     width: 100%;
   }
@@ -103,6 +105,7 @@
 
 #newEmployeeForm .bottomSection select {
   width: 150px;
+  font-size: 12px;
 }
 
 #newEmployeeForm .buttonWrapper {
@@ -113,6 +116,7 @@
 #newEmployeeForm .bottomSection button {
   width: 150px;
   cursor: pointer;
+  font-size: 12px;
 }
 
 #newEmployeeForm .bottomSection .returnButton {

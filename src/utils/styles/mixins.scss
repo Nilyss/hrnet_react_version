@@ -9,22 +9,9 @@
   background: vars.$greyBackground;
 }
 
-@mixin h2WithUnderline {
+@mixin h2 {
   font-size: 24px;
   font-weight: 700;
-  position: relative;
-
-  //&::after {
-  //  content: '';
-  //  position: absolute;
-  //  bottom: -0.1em;
-  //  left: 50%;
-  //  transform: translateX(-50%);
-  //  width: 60%;
-  //  height: 4px;
-  //  border-radius: 4px;
-  //  background: vars.$brandColorGradient;
-  //}
 }
 
 @mixin buttonDisabled {

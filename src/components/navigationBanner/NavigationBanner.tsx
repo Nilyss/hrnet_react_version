@@ -5,11 +5,8 @@ import './navigationBanner.scss'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { IoCloseOutline } from 'react-icons/io5'
 
-// types
-import { ReactElement } from 'react'
-
 // hooks | libraries
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ReactElement } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
@@ -86,10 +83,10 @@ export default function NavigationBanner(): ReactElement {
     )
   }
 
-  return (
-    <nav id={'navigationBanner'}>
-      {isMobile ? (
-        isMenuOpen ? (
+  const MenuLinks: () => ReactElement = (): ReactElement => {
+    return (
+      <>
+        {isMenuOpen ? (
           <div
             className={'menuContainer'}
             data-aos={'fade-left'}
@@ -100,10 +97,12 @@ export default function NavigationBanner(): ReactElement {
           </div>
         ) : (
           <RxHamburgerMenu className={'openIcon'} onClick={handleMenuClick} />
-        )
-      ) : (
-        <NavLinks />
-      )}
-    </nav>
+        )}
+      </>
+    )
+  }
+
+  return (
+    <nav id={'navigationBanner'}>{isMobile ? <MenuLinks /> : <NavLinks />}</nav>
   )
 }
