@@ -1,7 +1,7 @@
 @use './variables' as vars;
 
 @mixin mainLayout {
-  min-height: 81dvh;
+  min-height: 84.5dvh;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -12,6 +12,7 @@
 @mixin h2 {
   font-size: 24px;
   font-weight: 700;
+  text-align: center;
 }
 
 @mixin buttonDisabled {

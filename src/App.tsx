@@ -1,6 +1,3 @@
-// types
-import { ReactElement } from 'react'
-
 // hooks | libraries
 import {
   BrowserRouter as Router,
@@ -12,7 +9,7 @@ import {
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
-import { useEffect } from 'react'
+import { useEffect, ReactElement } from 'react'
 
 // components
 import Header from './components/header/Header'

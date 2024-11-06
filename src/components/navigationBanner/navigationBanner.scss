@@ -7,7 +7,7 @@
     adjust-color(vars.$brandColor, $lightness: 30%),
     adjust-color(vars.$darkerBrandColor, $lightness: 20%)
   );
-  min-height: 100px;
+  min-height: 75px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,5 +80,19 @@
   @media (max-width: vars.$mobileWidth) {
     border-bottom: unset;
     text-decoration: underline;
+  }
+}
+
+#navigationBanner .languageButtonsWrapper {
+  display: flex;
+  flex-flow: column;
+  position: absolute;
+  bottom: 1em;
+  left: 50%;
+  transform: translateX(-50%);
+
+  & button {
+    border: none;
+    background: #ffffff;
   }
 }

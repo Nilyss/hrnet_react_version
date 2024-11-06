@@ -11,7 +11,7 @@ export default function Footer(): ReactElement {
   const { t, i18n } = useTranslation()
 
   const changeLanguage: (lng: string) => void = (lng: string): void => {
-    i18n.changeLanguage(lng)
+    i18n.changeLanguage(lng).finally()
   }
 
   return (

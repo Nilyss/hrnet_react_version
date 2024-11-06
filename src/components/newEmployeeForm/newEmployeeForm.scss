@@ -6,12 +6,11 @@
   flex-flow: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5em;
-  width: 100%;
+  width: 75%;
   padding: 1em;
-  border: 2px solid vars.$fontColorPrimary;
   border-radius: 8px;
   background: #ffffff;
+
   @media (max-width: vars.$tabletWidth) {
     width: 85%;
   }
@@ -23,9 +22,8 @@
 #newEmployeeForm .topSection {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
-
   @media (max-width: vars.$tabletWidth) {
     flex-flow: column;
     gap: 1em;
@@ -36,7 +34,9 @@
 #newEmployeeForm .bottomSection {
   display: flex;
   flex-flow: column;
-  width: 50%;
+  align-items: center;
+  gap: 1em;
+
   @media (max-width: vars.$tabletWidth) {
     margin-top: 1em;
     margin-bottom: 2em;
@@ -52,14 +52,14 @@
 #newEmployeeForm .rightSide {
   display: flex;
   flex-flow: column;
-  justify-content: center;
-  width: 46%;
+  width: 48%;
   @media (max-width: vars.$tabletWidth) {
     width: 100%;
   }
 }
 
-#newEmployeeForm .inputWrapper {
+#newEmployeeForm .inputWrapper,
+#newEmployeeForm .selectWrapper {
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -67,13 +67,12 @@
     padding: 0 4rem;
   }
   @media (max-width: vars.$mobileWidth) {
-    padding: 0 .5rem;
+    padding: 0 0.5rem;
   }
 }
 
 #newEmployeeForm .inputWrapper label {
-  width: 50%;
-  font-size: 12px;
+  width: 75%;
   @media (max-width: vars.$tabletWidth) {
     width: 100%;
   }
@@ -83,29 +82,57 @@
   border: 1px solid vars.$fontColorPrimary;
   padding: 0.5em;
   background: adjust-color(vars.$greyBackground, $lightness: 10%);
-  margin-bottom: 1em;
-  width: 50%;
-  height: 30px;
-  font-size: 12px;
+  margin-bottom: 0.5em;
+  width: 75%;
+  height: 38px;
   @media (max-width: vars.$tabletWidth) {
     width: 100%;
   }
 }
 
-#newEmployeeForm .bottomSection {
-  display: flex;
-  align-items: center;
-  gap: 1em;
-}
-
 #newEmployeeForm .bottomSection label {
-  text-align: center;
   width: 100%;
+  text-align: center;
+  @media (max-width: vars.$tabletWidth) {
+    width: 100%;
+  }
 }
 
-#newEmployeeForm .bottomSection select {
+#newEmployeeForm .topSection .inputWrapper .css-b62m3t-container {
+  width: 75%;
+  height: 38px;
+  margin-bottom: 0.5em;
+  @media (max-width: vars.$tabletWidth) {
+    width: 100%;
+  }
+}
+
+#newEmployeeForm .topSection .inputWrapper .css-13cymwt-control {
+  width: 100%;
+  height: 38px;
+  border: 1px solid vars.$fontColorPrimary;
+  border-radius: unset;
+  background: #f2f2f2;
+}
+
+#newEmployeeForm .bottomSection .selectWrapper .css-b62m3t-container,
+#newEmployeeForm .bottomSection .selectWrapper .css-13cymwt-control {
   width: 150px;
-  font-size: 12px;
+  background: #f2f2f2;
+  height: 38px;
+  border-radius: unset;
+}
+
+#newEmployeeForm .bottomSection .selectWrapper .css-13cymwt-control {
+  border: 1px solid vars.$fontColorPrimary;
+}
+
+.css-13cymwt-control,
+.css-hlgwow,
+.css-1wy0on6,
+.css-1jqq78o-placeholder,
+.css-19bb58m {
+  height: 38px;
 }
 
 #newEmployeeForm .buttonWrapper {
@@ -116,7 +143,6 @@
 #newEmployeeForm .bottomSection button {
   width: 150px;
   cursor: pointer;
-  font-size: 12px;
 }
 
 #newEmployeeForm .bottomSection .returnButton {

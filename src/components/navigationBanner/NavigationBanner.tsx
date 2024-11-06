@@ -11,7 +11,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 export default function NavigationBanner(): ReactElement {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const mobileWidth = 768
   const location = useLocation()
@@ -32,6 +32,10 @@ export default function NavigationBanner(): ReactElement {
     if (isMobile) {
       setIsMenuOpen(false)
     }
+  }
+
+  const changeLanguage: (lng: string) => void = (lng: string): void => {
+    i18n.changeLanguage(lng).finally()
   }
 
   useEffect((): (() => void) => {
@@ -66,6 +70,13 @@ export default function NavigationBanner(): ReactElement {
     return (
       <div className="linksContainer">
         <Link
+          to={'/home'}
+          className={location.pathname === '/home' ? 'active' : ''}
+          onClick={onLinkClick}
+        >
+          {t('homeMenu')}
+        </Link>
+        <Link
           to="/current_employees"
           className={location.pathname === '/current_employees' ? 'active' : ''}
           onClick={onLinkClick}
@@ -94,6 +105,11 @@ export default function NavigationBanner(): ReactElement {
           >
             <IoCloseOutline className={'closeIcon'} onClick={handleMenuClick} />
             <NavLinks onLinkClick={handleLinkClick} />
+
+            <div className={'languageButtonsWrapper'}>
+              <button onClick={() => changeLanguage('en')}>🇬🇧 English</button>
+              <button onClick={() => changeLanguage('fr')}>🇫🇷 Français</button>
+            </div>
           </div>
         ) : (
           <RxHamburgerMenu className={'openIcon'} onClick={handleMenuClick} />

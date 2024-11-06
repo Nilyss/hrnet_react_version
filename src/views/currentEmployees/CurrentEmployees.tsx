@@ -5,14 +5,16 @@ import { convertDateToFr, convertDateToEn } from '../../utils/utils.ts'
 import './currentEmployees.scss'
 import 'nillys-react-table-library/style'
 
-// types
-import { ReactElement } from 'react'
+// custom types
 import { IEmployee } from '../../utils/interface/employee.ts'
 
 // hooks | library
 import { NRTL } from 'nillys-react-table-library' //https://www.npmjs.com/package/nillys-react-table-library
-import { useEffect, useContext } from 'react'
+import { useEffect, useContext, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+
+// components
+import BackToTop from '../../components/backToTop/BackToTop'
 
 // context
 import { EmployeeContext } from '../../context/EmployeeContext.tsx'
@@ -63,28 +65,32 @@ export default function CurrentEmployees(): ReactElement {
   }
 
   return (
-    <main id="currentEmployees">
-      {employees && (
-        <NRTL
-          datas={table}
-          headerBackgroundColor={'linear-gradient(to left, #d5e065, #a8c24e)'}
-          headerHoverBackgroundColor={'#a8c24e'}
-          textColor={'#36395a'}
-          rowColor={'#ffffff'}
-          rowHoverColor={'#36395a'}
-          hoverTextColor={'#ffffff'}
-          disabledButtonColor={'#dcdcdc'}
-          columnSortingColor={'#dcdcdc'}
-          columnSortingFullFilledColor={'#36395a'}
-          showSearchBar={true}
-          showItemsPerPageSelector={true}
-          showPagination={true}
-          showPreviousNextButtons={true}
-          enableColumnSorting={true}
-          itemsPerPageOptions={[25, 50, 100]}
-          language={t('tableLang')}
-        />
-      )}
-    </main>
+    <>
+      <BackToTop />
+      <main id="currentEmployees">
+        <h2>{t('currentEmployees')}</h2>
+        {employees && (
+          <NRTL
+            datas={table}
+            headerBackgroundColor={'linear-gradient(to left, #d5e065, #a8c24e)'}
+            headerHoverBackgroundColor={'#a8c24e'}
+            textColor={'#36395a'}
+            rowColor={'#ffffff'}
+            rowHoverColor={'#36395a'}
+            hoverTextColor={'#ffffff'}
+            disabledButtonColor={'#dcdcdc'}
+            columnSortingColor={'#dcdcdc'}
+            columnSortingFullFilledColor={'#36395a'}
+            showSearchBar={true}
+            showItemsPerPageSelector={true}
+            showPagination={true}
+            showPreviousNextButtons={true}
+            enableColumnSorting={true}
+            itemsPerPageOptions={[25, 50, 100]}
+            language={t('tableLang')}
+          />
+        )}
+      </main>
+    </>
   )
 }

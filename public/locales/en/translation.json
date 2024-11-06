@@ -1,4 +1,5 @@
 {
+  "homeMenu": "Home",
   "viewCurrentEmployees": "View Current Employees",
   "createEmployee": "Create Employee",
 
@@ -14,7 +15,7 @@
 
   "credentials": "is a brand of the WealthHealth company. All right reserved",
 
-  "currentEmployees": "Current Employees",
+  "currentEmployees": "List of employees",
 
   "createEmployeeForm": "Create a new employee form",
   "civilInformation": "Civil Information",
@@ -31,6 +32,12 @@
   "department": "Department",
   "home": "Home",
   "save": "Save",
+
+  "sales": "Sales",
+  "marketing": "Marketing",
+  "engineering": "Engineering",
+  "humanResources": "Human Resources",
+  "legal": "Legal",
 
   "tableLang": "En"
 }
