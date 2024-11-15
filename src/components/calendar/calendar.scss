@@ -1,0 +1,108 @@
+#NRCalendar .arrowTargetInput {
+  background: rgba(255, 255, 255, 0);
+  position: absolute;
+  top: -15px;
+  left: 0;
+  z-index: -1;
+}
+
+#NRCalendar .arrowTargetInput .arrowTargetInputIcon {
+  font-size: 24px;
+  fill: #36395a;
+}
+
+#NRCalendar .NRCalendarWrapper {
+  background: #ffffff;
+  box-shadow:
+    rgba(60, 64, 67, 0.3) 0 1px 2px 0,
+    rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
+}
+
+#NRCalendar .calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0.5em;
+  background: linear-gradient(
+    to left,
+    adjust-color(#818f26, $lightness: 30%),
+    adjust-color(#6a782b, $lightness: 20%)
+  );
+}
+
+#NRCalendar .calendarHeader .month {
+  text-transform: capitalize;
+}
+
+#NRCalendar .calendarHeader button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+
+#NRCalendar .calendarBody {
+  padding: 1.2em;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendarWeekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: .6em;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.weekdayHeader {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+#NRCalendar .calendarBody .calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 1.5em;
+  text-align: center;
+}
+
+#NRCalendar .calendarBody .calendarGrid .calendarDay {
+  background: none;
+  border: none;
+  padding: unset;
+}
+
+#NRCalendar .calendarBody .calendarGrid .selected {
+  // temp colors
+  background: blue;
+  color: white;
+}
+
+#NRCalendar .calendarBody .calendarGrid .weekend {
+  color: #fb5858;
+}
+
+.calendarFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1em;
+}
+
+.calendarFooter button {
+  border: unset;
+  background: unset;
+  color: #36395a;
+  text-decoration: underline;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: .5px;
+}

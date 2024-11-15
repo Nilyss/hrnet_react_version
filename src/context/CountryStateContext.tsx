@@ -1,5 +1,14 @@
+// hooks libraries
+import {
+  ReactElement,
+  createContext,
+  useState,
+  useMemo,
+  useCallback,
+  Context,
+} from 'react'
+
 // types
-import { ReactElement, createContext, useState, Context } from 'react'
 import { ICountryState } from '../utils/interface/countryState'
 interface ICountryStateContext {
   countryStates: ICountryState[] | null
@@ -12,7 +21,7 @@ import { getCountryStateService } from '../API/services/countryState/getCountryS
 export const CountryStateContext: Context<ICountryStateContext> =
   createContext<ICountryStateContext>({
     countryStates: null,
-    getCountryStates: async (): Promise<void> => {},
+    getCountryStates: () => Promise<void>,
   })
 
 export const CountryStateProvider = ({
@@ -24,13 +33,28 @@ export const CountryStateProvider = ({
     null,
   )
 
-  const getCountryStates: () => Promise<void> = async (): Promise<void> => {
-    const countryStatesData: ICountryState[] = await getCountryStateService()
-    setCountryStates(countryStatesData)
-  }
+  const getCountryStates: () => Promise<void> =
+    useCallback(async (): Promise<void> => {
+      const countryStatesData: ICountryState[] = await getCountryStateService()
+      setCountryStates(countryStatesData)
+    }, [])
+
+  const value: {
+    countryStates: ICountryState[] | null
+    getCountryStates: () => Promise<void>
+  } = useMemo(
+    (): {
+      countryStates: ICountryState[] | null
+      getCountryStates: () => Promise<void>
+    } => ({
+      countryStates,
+      getCountryStates,
+    }),
+    [countryStates, getCountryStates],
+  )
 
   return (
-    <CountryStateContext.Provider value={{ countryStates, getCountryStates }}>
+    <CountryStateContext.Provider value={value}>
       {children}
     </CountryStateContext.Provider>
   )

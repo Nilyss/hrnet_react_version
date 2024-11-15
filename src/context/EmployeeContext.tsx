@@ -1,5 +1,14 @@
+// hooks libraries
+import {
+  ReactElement,
+  createContext,
+  useState,
+  useMemo,
+  useCallback,
+  Context,
+} from 'react'
+
 // types
-import { ReactElement, createContext, useState, Context } from 'react'
 import { IEmployee } from '../utils/interface/employee.ts'
 interface IEmployeeContext {
   employees: IEmployee[] | null
@@ -12,7 +21,7 @@ import { getEmployeesService } from '../API/services/employee/getEmployee.servic
 export const EmployeeContext: Context<IEmployeeContext> =
   createContext<IEmployeeContext>({
     employees: null,
-    getEmployees: async (): Promise<void> => {},
+    getEmployees: () => Promise<void>,
   })
 
 export const EmployeeProvider = ({
@@ -22,13 +31,28 @@ export const EmployeeProvider = ({
 }): ReactElement => {
   const [employees, setEmployees] = useState<IEmployee[] | null>(null)
 
-  const getEmployees: () => Promise<void> = async (): Promise<void> => {
-    const employeesDatas: IEmployee[] = await getEmployeesService()
-    setEmployees(employeesDatas)
-  }
+  const getEmployees: () => Promise<void> =
+    useCallback(async (): Promise<void> => {
+      const employeesDatas: IEmployee[] = await getEmployeesService()
+      setEmployees(employeesDatas)
+    }, [])
+
+  const value: {
+    employees: IEmployee[] | null
+    getEmployees: () => Promise<void>
+  } = useMemo(
+    (): {
+      employees: IEmployee[] | null
+      getEmployees: () => Promise<void>
+    } => ({
+      employees,
+      getEmployees,
+    }),
+    [employees, getEmployees],
+  )
 
   return (
-    <EmployeeContext.Provider value={{ employees, getEmployees }}>
+    <EmployeeContext.Provider value={value}>
       {children}
     </EmployeeContext.Provider>
   )

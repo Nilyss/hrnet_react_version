@@ -9,6 +9,9 @@ import { useTranslation } from 'react-i18next'
 // context
 import { CountryStateContext } from '../../context/CountryStateContext.tsx'
 
+// components
+import DatePicker from '../datePicker/DatePicker.tsx'
+
 export default function NewEmployeeForm(): ReactElement {
   const { countryStates, getCountryStates } = useContext(CountryStateContext)
   const { t } = useTranslation()
@@ -54,11 +57,9 @@ export default function NewEmployeeForm(): ReactElement {
               </div>
               <div className={'inputWrapper'}>
                 <label htmlFor={'dateOfBirth'}>{t('dateOfBirth')}</label>
-                <input
-                  type={'date'}
-                  id={'dateOfBirth'}
-                  placeholder={t('dateOfBirth')}
-                  required
+                <DatePicker
+                  onDateChange={(): void => {}}
+                  customStyle={{width: '75%'}}
                 />
               </div>
               <div className={'inputWrapper'}>

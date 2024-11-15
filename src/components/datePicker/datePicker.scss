@@ -1,0 +1,19 @@
+#NRDPL {
+  width: 100%;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  position: relative;
+}
+
+#NRDPL #NRDPLInput {
+  width: 100%;
+  cursor: pointer;
+}
+
+#NRDPL .NRDPLCalendarContainer {
+  position: absolute;
+  z-index: 9999;
+  top: 45px;
+  left: 0;
+}
