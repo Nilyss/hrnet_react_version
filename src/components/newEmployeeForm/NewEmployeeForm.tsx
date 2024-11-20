@@ -16,13 +16,13 @@ export default function NewEmployeeForm(): ReactElement {
   const { countryStates, getCountryStates } = useContext(CountryStateContext)
   const { t } = useTranslation()
 
-  useEffect(() => {
+  useEffect((): void => {
     if (!countryStates) {
       getCountryStates()
     }
   }, [])
 
-  const selectDepartmentOptions = [
+  const selectDepartmentOptions: { value: string; label: string }[] = [
     { value: 'Sales', label: t('sales') },
     { value: 'Marketing', label: t('marketing') },
     { value: 'Engineering', label: t('engineering') },
@@ -59,16 +59,14 @@ export default function NewEmployeeForm(): ReactElement {
                 <label htmlFor={'dateOfBirth'}>{t('dateOfBirth')}</label>
                 <DatePicker
                   onDateChange={(): void => {}}
-                  customStyle={{width: '75%'}}
+                  customStyle={{ width: '75%' }}
                 />
               </div>
               <div className={'inputWrapper'}>
                 <label htmlFor={'startDate'}>{t('startDate')}</label>
-                <input
-                  type={'date'}
-                  id={'startDate'}
-                  placeholder={t('startDate')}
-                  required
+                <DatePicker
+                  onDateChange={(): void => {}}
+                  customStyle={{ width: '75%' }}
                 />
               </div>
             </div>

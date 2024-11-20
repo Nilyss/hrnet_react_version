@@ -5,7 +5,7 @@ import './calendar.scss'
 interface ICalendarProps {
   value?: Date
   selectedDate?: Date
-  onDateSelect?: (date: Date) => void
+  onDateSelect?: (date: Date | undefined) => void
   locale: string
   customStyles?: CSSProperties
 }
@@ -129,8 +129,8 @@ export default function Calendar({
         </div>
         <div className={'calendarFooter'}>
           <div className={'buttonWrapper'}>
-            <button>Clear</button>
-            <button>Today</button>
+            <button onClick={(): void | undefined => onDateSelect?.(undefined)}>Clear</button>
+            <button onClick={(): void | undefined => onDateSelect?.(new Date)}>Today</button>
           </div>
         </div>
       </div>

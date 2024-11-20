@@ -1,5 +1,6 @@
-// styles
+// styles | icons
 import './datePicker.scss'
+import { CiCalendarDate } from "react-icons/ci";
 
 // types
 interface IDatePickerProps {
@@ -9,7 +10,7 @@ interface IDatePickerProps {
 }
 
 // hooks | library
-import { useState, CSSProperties, ReactElement, useEffect } from 'react'
+import { useState, CSSProperties, ReactElement, useEffect, useRef } from 'react'
 
 // components
 import Calendar from '../calendar/Calendar'
@@ -20,8 +21,11 @@ export default function DatePicker({
   customStyle,
 }: Readonly<IDatePickerProps>): ReactElement {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [currentDate, setCurrentDate] = useState<Date | undefined>(selectedDate || undefined)
+  const [currentDate, setCurrentDate] = useState<Date | undefined>(
+    selectedDate || undefined,
+  )
   const [placeholder, setPlaceholder] = useState<string>('')
+  const calendarRef = useRef<HTMLDivElement | null>(null)
 
   const browserLanguage: string =
     navigator.languages && navigator.languages.length > 0
@@ -30,9 +34,15 @@ export default function DatePicker({
 
   const toggleCalendar: () => void = (): void => setIsOpen(!isOpen)
 
-  const handleDateClick: (date: Date) => void = (date: Date): void => {
-    onDateChange(date)
-    setCurrentDate(date)
+  const handleDateClick: (date: Date | undefined) => void = (
+    date: Date | undefined,
+  ): void => {
+    if (date) {
+      onDateChange(date)
+      setCurrentDate(date)
+    } else {
+      setCurrentDate(undefined)
+    }
     setIsOpen(false)
   }
 
@@ -51,18 +61,41 @@ export default function DatePicker({
     }
   }, [browserLanguage])
 
+  useEffect((): (() => void) => {
+    const handleClickOutside: (event: MouseEvent) => void = (
+      event: MouseEvent,
+    ): void => {
+      event.preventDefault()
+      if (
+        calendarRef.current &&
+        !calendarRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false)
+      }
+    }
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+    return (): void => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen])
+
   return (
     <div id={'NRDPL'} style={customStyle}>
       <input
         id={'NRDPLInput'}
         type={'text'}
         placeholder={placeholder}
-        value={currentDate ? currentDate.toLocaleDateString(browserLanguage): ''}
+        value={
+          currentDate ? currentDate.toLocaleDateString(browserLanguage) : ''
+        }
         onClick={toggleCalendar}
         readOnly
       />
+      <CiCalendarDate className={'calendarIcon'} />
       {isOpen && (
-        <div className={'NRDPLCalendarContainer'}>
+        <div ref={calendarRef} className={'NRDPLCalendarContainer'}>
           <Calendar
             value={selectedDate}
             onDateSelect={handleDateClick}

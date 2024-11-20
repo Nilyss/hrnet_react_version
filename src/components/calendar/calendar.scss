@@ -22,12 +22,13 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  padding: 0.5em;
+  padding: 0.2em;
   background: linear-gradient(
     to left,
     adjust-color(#818f26, $lightness: 30%),
     adjust-color(#6a782b, $lightness: 20%)
   );
+  font-size: 16px;
 }
 
 #NRCalendar .calendarHeader .month {
@@ -46,7 +47,7 @@
 
 
 #NRCalendar .calendarBody {
-  padding: 1.2em;
+  padding: .3em;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -56,21 +57,22 @@
 .calendarWeekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: .6em;
+  gap: .3em;
   text-align: center;
-  margin-bottom: 10px;
 }
 
 .weekdayHeader {
   font-weight: bold;
-  font-size: 1rem;
+  font-size: .8rem;
+  text-transform: capitalize;
 }
 
 #NRCalendar .calendarBody .calendarGrid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(5, 1fr);
-  gap: 1.5em;
+  row-gap: .2em;
+  column-gap: 1em;
   text-align: center;
 }
 
@@ -78,6 +80,7 @@
   background: none;
   border: none;
   padding: unset;
+  font-size: 14px;
 }
 
 #NRCalendar .calendarBody .calendarGrid .selected {
@@ -94,7 +97,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 1em;
+  padding-bottom: .3em;
 }
 
 .calendarFooter button {
@@ -102,7 +105,7 @@
   background: unset;
   color: #36395a;
   text-decoration: underline;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: bold;
   letter-spacing: .5px;
 }
