@@ -31,6 +31,17 @@
   font-size: 16px;
 }
 
+#NRCalendar .calendarHeader .selectWrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+#NRCalendar .calendarHeader .selectWrapper select {
+  appearance: auto;
+  -webkit-appearance: menulist;
+}
+
 #NRCalendar .calendarHeader .month {
   text-transform: capitalize;
 }

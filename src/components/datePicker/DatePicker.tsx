@@ -1,12 +1,14 @@
 // styles | icons
 import './datePicker.scss'
-import { CiCalendarDate } from "react-icons/ci";
+import { CiCalendarDate } from 'react-icons/ci'
 
 // types
 interface IDatePickerProps {
   selectedDate?: Date
   onDateChange: (date: Date) => void
   customStyle?: CSSProperties
+  minYear?: number
+  maxYear?: number
 }
 
 // hooks | library
@@ -19,6 +21,8 @@ export default function DatePicker({
   selectedDate,
   onDateChange,
   customStyle,
+  minYear,
+  maxYear,
 }: Readonly<IDatePickerProps>): ReactElement {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [currentDate, setCurrentDate] = useState<Date | undefined>(
@@ -31,6 +35,17 @@ export default function DatePicker({
     navigator.languages && navigator.languages.length > 0
       ? navigator.languages[0]
       : navigator.language
+
+  const translations: Record<string, { clear: string; today: string }> = {
+    en: { clear: 'Clear', today: 'Today' },
+    fr: { clear: 'Effacer', today: "Aujourd'hui" },
+    de: { clear: 'Löschen', today: 'Heute' },
+    es: { clear: 'Borrar', today: 'Hoy' },
+    it: { clear: 'Cancella', today: 'Oggi' },
+  }
+
+  const currentTranslation: { clear: string; today: string } =
+    translations[browserLanguage.split('-')[0]] || translations.en
 
   const toggleCalendar: () => void = (): void => setIsOpen(!isOpen)
 
@@ -65,7 +80,6 @@ export default function DatePicker({
     const handleClickOutside: (event: MouseEvent) => void = (
       event: MouseEvent,
     ): void => {
-      event.preventDefault()
       if (
         calendarRef.current &&
         !calendarRef.current.contains(event.target as Node)
@@ -100,6 +114,9 @@ export default function DatePicker({
             value={selectedDate}
             onDateSelect={handleDateClick}
             locale={browserLanguage}
+            translations={currentTranslation}
+            minYear={minYear}
+            maxYear={maxYear}
           />
         </div>
       )}
