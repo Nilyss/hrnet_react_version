@@ -2,8 +2,15 @@
 import './newEmployeeForm.scss'
 
 // hooks | libraries
-import { useContext, useEffect, ReactElement, useState, FormEvent } from 'react'
-import Select from 'react-select'
+import {
+  useContext,
+  useEffect,
+  ReactElement,
+  useState,
+  FormEvent,
+  ChangeEvent,
+} from 'react'
+import Select, { SingleValue } from 'react-select'
 import { useTranslation } from 'react-i18next'
 
 // context
@@ -12,6 +19,7 @@ import { CountryStateContext } from '../../context/CountryStateContext.tsx'
 // components
 import DatePicker from '../datePicker/DatePicker.tsx'
 import AlertModal from '../alertModal/AlertModal.tsx'
+import { ICountryState } from '../../utils/interface/countryState.ts'
 
 export default function NewEmployeeForm(): ReactElement {
   const tabletBreakpoint: number = 1024
@@ -25,6 +33,7 @@ export default function NewEmployeeForm(): ReactElement {
   const [zipCode, setZipCode] = useState<string>('')
   const [department, setDepartment] = useState<string>('')
   const [alertMessage, setAlertMessage] = useState<string>('')
+  const [isSubmitEnabled, setIsSubmitEnabled] = useState<boolean>(false)
   const [isAlertDisplayed, setIsAlertDisplayed] = useState<boolean>(false)
   const [isTablet, setIsTablet] = useState<boolean>(
     window.matchMedia(`(max-width: ${tabletBreakpoint}px`).matches,
@@ -45,21 +54,6 @@ export default function NewEmployeeForm(): ReactElement {
     ? { width: '100%' }
     : { width: '75%' }
 
-  const isFormFullfiled: () => void = (): voic => {
-    if (
-      firstName.trim() !== '' &&
-      lastName.trim() !== '' &&
-      dateOfBirth !== null &&
-      startDate !== null &&
-      street.trim() !== '' &&
-      city.trim() !== '' &&
-      state.trim() !== '' &&
-      zipCode.trim() !== '' &&
-      department.trim() !== ''
-    ) {
-      // toggleButtonEnable // TODO cree cette fonction
-    }
-  }
 
   const handleSubmit: (e: FormEvent<HTMLFormElement>) => void = (
     e: FormEvent<HTMLFormElement>,
@@ -89,6 +83,15 @@ export default function NewEmployeeForm(): ReactElement {
       setAlertMessage('Cannot create employee, try again later.')
     }
     setIsAlertDisplayed(true)
+    setFirstName('')
+    setLastName('')
+    setDateOfBirth(null)
+    setStartDate(null)
+    setStreet('')
+    setCity('')
+    setState('')
+    setZipCode('')
+    setDepartment('')
   }
 
   useEffect((): void => {
@@ -107,6 +110,31 @@ export default function NewEmployeeForm(): ReactElement {
     return (): void => mediaQuery.removeEventListener('change', handleResize)
   }, [tabletBreakpoint])
 
+  useEffect((): void => {
+    const isFilled: boolean =
+      firstName.trim() !== '' &&
+      lastName.trim() !== '' &&
+      dateOfBirth !== null &&
+      startDate !== null &&
+      street.trim() !== '' &&
+      city.trim() !== '' &&
+      state.trim() !== '' &&
+      zipCode.trim() !== '' &&
+      department.trim() !== ''
+
+    setIsSubmitEnabled(isFilled)
+  }, [
+    firstName,
+    lastName,
+    dateOfBirth,
+    startDate,
+    street,
+    city,
+    state,
+    zipCode,
+    department,
+  ])
+
   return (
     <>
       {countryStates && (
@@ -119,6 +147,7 @@ export default function NewEmployeeForm(): ReactElement {
               props={{
                 textAlert: alertMessage,
                 setIsAlertOpen: setIsAlertDisplayed,
+                isAlertOpen: isAlertDisplayed,
               }}
             />
           )}
@@ -131,7 +160,9 @@ export default function NewEmployeeForm(): ReactElement {
                   type={'text'}
                   id={'firstName'}
                   value={firstName}
-                  onChange={(e): void => setFirstName(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>): void =>
+                    setFirstName(e.target.value)
+                  }
                   required
                 />
               </div>
@@ -141,14 +172,16 @@ export default function NewEmployeeForm(): ReactElement {
                   type={'text'}
                   id={'lastName'}
                   value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>): void =>
+                    setLastName(e.target.value)
+                  }
                   required
                 />
               </div>
               <div className={'inputWrapper'}>
                 <label htmlFor={'dateOfBirth'}>{t('dateOfBirth')}</label>
                 <DatePicker
-                  onDateChange={(date) => setDateOfBirth(date)}
+                  onDateChange={(date: Date): void => setDateOfBirth(date)}
                   customStyle={datePickerStyle}
                   minYear={1900}
                   maxYear={new Date().getFullYear()}
@@ -157,7 +190,7 @@ export default function NewEmployeeForm(): ReactElement {
               <div className={'inputWrapper'}>
                 <label htmlFor={'startDate'}>{t('startDate')}</label>
                 <DatePicker
-                  onDateChange={(date) => setStartDate(date)}
+                  onDateChange={(date: Date): void => setStartDate(date)}
                   customStyle={datePickerStyle}
                   minYear={1998}
                   maxYear={new Date().getFullYear() + 1}
@@ -172,7 +205,9 @@ export default function NewEmployeeForm(): ReactElement {
                   type={'text'}
                   id={'street'}
                   value={street}
-                  onChange={(e) => setStreet(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>): void =>
+                    setStreet(e.target.value)
+                  }
                   required
                 />
               </div>
@@ -182,7 +217,9 @@ export default function NewEmployeeForm(): ReactElement {
                   type={'text'}
                   id={'city'}
                   value={city}
-                  onChange={(e) => setCity(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>): void =>
+                    setCity(e.target.value)
+                  }
                   required
                 />
               </div>
@@ -191,10 +228,12 @@ export default function NewEmployeeForm(): ReactElement {
                 <Select
                   id={'state'}
                   options={countryStates}
-                  value={countryStates.find((s) => s.value === state)}
-                  onChange={(selectedOption) =>
-                    setState(selectedOption?.value || '')
-                  }
+                  value={countryStates.find(
+                    (s: ICountryState): boolean => s.value === state,
+                  )}
+                  onChange={(
+                    selectedOption: SingleValue<ICountryState>,
+                  ): void => setState(selectedOption?.value ?? '')}
                 />
               </div>
               <div className={'inputWrapper'}>
@@ -203,7 +242,9 @@ export default function NewEmployeeForm(): ReactElement {
                   type={'text'}
                   id={'zipCode'}
                   value={zipCode}
-                  onChange={(e) => setZipCode(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>): void =>
+                    setZipCode(e.target.value)
+                  }
                   required
                 />
               </div>
@@ -216,18 +257,19 @@ export default function NewEmployeeForm(): ReactElement {
                 id={'department'}
                 options={selectDepartmentOptions}
                 value={selectDepartmentOptions.find(
-                  (option) => option.value === department,
+                  (option: { value: string; label: string }): boolean =>
+                    option.value === department,
                 )}
-                onChange={(selectedOption) =>
-                  setDepartment(selectedOption?.value || '')
-                }
+                onChange={(
+                  selectedOption: SingleValue<{ value: string; label: string }>,
+                ): void => setDepartment(selectedOption?.value ?? '')}
               />
             </div>
             <div className={'buttonWrapper'}>
               <button
-                className={'buttonDisabled'}
+                className={isSubmitEnabled ? 'buttonEnabled' : 'buttonDisabled'}
                 type={'submit'}
-                disabled={true}
+                disabled={!isSubmitEnabled}
               >
                 {t('save')}
               </button>
