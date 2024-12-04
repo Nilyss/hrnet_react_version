@@ -2,7 +2,7 @@
 @use '../../utils/styles/mixins' as mixins;
 
 #createEmployee {
-  min-height: 84.5dvh;
+  min-height: 80dvh;
   background: vars.$greyBackground;
   display: flex;
   flex-flow: column;

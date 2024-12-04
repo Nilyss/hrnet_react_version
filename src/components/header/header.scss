@@ -2,7 +2,7 @@
 @use '../../utils/styles/mixins' as mixins;
 
 header {
-  min-height: 75px;
+  min-height: 10dvh;
 }
 
 header .brandingContainer {

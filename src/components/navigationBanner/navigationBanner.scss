@@ -7,7 +7,7 @@
     adjust-color(vars.$brandColor, $lightness: 30%),
     adjust-color(vars.$darkerBrandColor, $lightness: 20%)
   );
-  min-height: 75px;
+  min-height: 10dvh;
   display: flex;
   align-items: center;
   justify-content: center;
