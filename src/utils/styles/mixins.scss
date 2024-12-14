@@ -1,3 +1,4 @@
+@use "sass:color";
 @use './variables' as vars;
 
 @mixin mainLayout {
@@ -18,7 +19,7 @@
 @mixin buttonDisabled {
   width: 150px;
   text-align: center;
-  background: adjust-color(vars.$greyBackground, $lightness: -10%);
+  background: color.adjust(vars.$greyBackground, $lightness: -10%);
   border: 1px solid vars.$fontColorPrimary;
   cursor: not-allowed !important;
   padding: 0.3em 0.5em;

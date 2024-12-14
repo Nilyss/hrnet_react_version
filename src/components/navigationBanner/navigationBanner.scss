@@ -1,11 +1,12 @@
+@use 'sass:color';
 @use '../../utils/styles/variables' as vars;
 @use '../../utils/styles/mixins' as mixins;
 
 #navigationBanner {
   background: linear-gradient(
     to right,
-    adjust-color(vars.$brandColor, $lightness: 30%),
-    adjust-color(vars.$darkerBrandColor, $lightness: 20%)
+    color.adjust(vars.$brandColor, $lightness: 30%),
+    color.adjust(vars.$darkerBrandColor, $lightness: 20%)
   );
   min-height: 10dvh;
   display: flex;

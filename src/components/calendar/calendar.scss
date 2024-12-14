@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 #NRCalendar .arrowTargetInput {
   background: rgba(255, 255, 255, 0);
   position: absolute;
@@ -25,8 +27,8 @@
   padding: 0.2em;
   background: linear-gradient(
     to left,
-    adjust-color(#818f26, $lightness: 30%),
-    adjust-color(#6a782b, $lightness: 20%)
+    color.adjust(#818f26, $lightness: 30%),
+    color.adjust(#6a782b, $lightness: 20%)
   );
   font-size: 16px;
 }
