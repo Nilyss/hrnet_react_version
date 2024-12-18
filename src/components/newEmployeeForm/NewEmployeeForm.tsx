@@ -15,13 +15,18 @@ import { useTranslation } from 'react-i18next'
 
 // context
 import { CountryStateContext } from '../../context/CountryStateContext.tsx'
+import { EmployeeContext } from '../../context/EmployeeContext.tsx'
 
 // components
 import DatePicker from '../datePicker/DatePicker.tsx'
 import AlertModal from '../alertModal/AlertModal.tsx'
 import { ICountryState } from '../../utils/interface/countryState.ts'
 
+// utils
+import { formatDateForAPI } from '../../utils/utils.ts'
+
 export default function NewEmployeeForm(): ReactElement {
+  const { addEmployee } = useContext(EmployeeContext)
   const tabletBreakpoint: number = 1024
   const [firstName, setFirstName] = useState<string>('')
   const [lastName, setLastName] = useState<string>('')
@@ -38,6 +43,13 @@ export default function NewEmployeeForm(): ReactElement {
   const [isTablet, setIsTablet] = useState<boolean>(
     window.matchMedia(`(max-width: ${tabletBreakpoint}px`).matches,
   )
+  const [errorMessages, setErrorMessages] = useState({
+    firstName: '',
+    lastName: '',
+    street: '',
+    city: '',
+    zipCode: '',
+  })
 
   const { countryStates, getCountryStates } = useContext(CountryStateContext)
   const { t } = useTranslation()
@@ -54,44 +66,99 @@ export default function NewEmployeeForm(): ReactElement {
     ? { width: '100%' }
     : { width: '75%' }
 
+  const handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void = (
+    e: ChangeEvent<HTMLInputElement>,
+  ): void => {
+    const { name, value } = e.target
+
+    switch (name) {
+      case 'firstName':
+        setFirstName(value.trim())
+        if (
+          value.trim() !== '' &&
+          value.trim().length >= 3 &&
+          /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{1,50}$/.test(value)
+        ) {
+          console.log('firstName -≥', value)
+          setErrorMessages({
+            ...errorMessages,
+            firstName: 'First name must be at least 3 characters long.',
+          })
+        }
+        break
+      case 'lastName':
+        setLastName(value.trim())
+        if (
+          value.trim() !== '' &&
+          value.trim().length >= 3 &&
+          /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{1,100}$/.test(value)
+        ) {
+          console.log('lastName -≥', value)
+          // supprimer ici les messages d'erreur
+        }
+        break
+      case 'street':
+        setStreet(value)
+        if (!/^[^<>%$&;:{}[\]\\/"|~^`]*$/.test(value)) {
+          console.log('street -≥', value)
+          // supprimer ici les messages d'erreur
+        }
+        break
+      case 'city':
+        setCity(value)
+        if (
+          value.trim()! == '' &&
+          value.trim().length >= 2 &&
+          /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{1,50}$/.test(value)
+        ) {
+          console.log('city -≥', value)
+          // supprimer ici les messages d'erreur
+        }
+        break
+      case 'zipCode':
+        setZipCode(value)
+        if (
+          value.trim() !== '' &&
+          value.trim().length >= 3 &&
+          /^[A-Za-z0-9\- ]{3,10}$/.test(value)
+        ) {
+          console.log('zipCode -≥', value)
+          // supprimer ici les messages d'erreur
+        }
+        break
+    }
+  }
 
   const handleSubmit: (e: FormEvent<HTMLFormElement>) => void = (
     e: FormEvent<HTMLFormElement>,
   ): void => {
     e.preventDefault()
-    const formData = {
+    const newEmployee = {
       firstName,
       lastName,
-      dateOfBirth,
-      startDate,
+      dateOfBirth: formatDateForAPI(dateOfBirth),
+      department,
+      startDate: formatDateForAPI(startDate),
       street,
       city,
       state,
       zipCode,
-      department,
     }
 
-    console.log('formData =>', formData)
+    addEmployee(newEmployee)
 
-    const res = {
-      status: 201,
-    }
-
-    if (res.status === 201) {
-      setAlertMessage('New employee created successfully !')
-    } else {
-      setAlertMessage('Cannot create employee, try again later.')
-    }
+    setAlertMessage('New employee created successfully!')
     setIsAlertDisplayed(true)
+
     setFirstName('')
     setLastName('')
     setDateOfBirth(null)
+    setDepartment('')
     setStartDate(null)
     setStreet('')
     setCity('')
     setState('')
     setZipCode('')
-    setDepartment('')
   }
 
   useEffect((): void => {
@@ -159,9 +226,10 @@ export default function NewEmployeeForm(): ReactElement {
                 <input
                   type={'text'}
                   id={'firstName'}
+                  name={'firstName'}
                   value={firstName}
                   onChange={(e: ChangeEvent<HTMLInputElement>): void =>
-                    setFirstName(e.target.value)
+                    handleInputChange(e)
                   }
                   required
                 />
@@ -171,9 +239,10 @@ export default function NewEmployeeForm(): ReactElement {
                 <input
                   type={'text'}
                   id={'lastName'}
+                  name={'lastName'}
                   value={lastName}
                   onChange={(e: ChangeEvent<HTMLInputElement>): void =>
-                    setLastName(e.target.value)
+                    handleInputChange(e)
                   }
                   required
                 />
@@ -204,9 +273,10 @@ export default function NewEmployeeForm(): ReactElement {
                 <input
                   type={'text'}
                   id={'street'}
+                  name={'street'}
                   value={street}
                   onChange={(e: ChangeEvent<HTMLInputElement>): void =>
-                    setStreet(e.target.value)
+                    handleInputChange(e)
                   }
                   required
                 />
@@ -216,9 +286,10 @@ export default function NewEmployeeForm(): ReactElement {
                 <input
                   type={'text'}
                   id={'city'}
+                  name={'city'}
                   value={city}
                   onChange={(e: ChangeEvent<HTMLInputElement>): void =>
-                    setCity(e.target.value)
+                    handleInputChange(e)
                   }
                   required
                 />
@@ -241,9 +312,10 @@ export default function NewEmployeeForm(): ReactElement {
                 <input
                   type={'text'}
                   id={'zipCode'}
+                  name={'zipCode'}
                   value={zipCode}
                   onChange={(e: ChangeEvent<HTMLInputElement>): void =>
-                    setZipCode(e.target.value)
+                    handleInputChange(e)
                   }
                   required
                 />

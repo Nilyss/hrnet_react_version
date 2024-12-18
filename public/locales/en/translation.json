@@ -2,9 +2,7 @@
   "homeMenu": "Home",
   "viewCurrentEmployees": "View Current Employees",
   "createEmployee": "Create Employee",
-
   "welcomeTo": "Welcome to",
-
   "allowsYouTo": "allows you to easily manage your employees in",
   "onePlace": "one place",
   "viewAll": "View all",
@@ -12,15 +10,11 @@
   "andAddNewTeamMembers": "and add new team members with just a few clicks",
   "streamlineYourHumanResourceManagement": "Streamline your human resource management with",
   "simplicityAndEfficiency": "simplicity and efficiency",
-
   "credentials": "is a brand of the WealthHealth company. All right reserved",
-
   "currentEmployees": "List of employees",
-
   "createEmployeeForm": "Create a new employee form",
   "civilInformation": "Civil Information",
   "address": "Address",
-
   "firstName": "First Name",
   "lastName": "Last Name",
   "dateOfBirth": "Date of Birth",
@@ -32,12 +26,10 @@
   "department": "Department",
   "home": "Home",
   "save": "Save",
-
   "sales": "Sales",
   "marketing": "Marketing",
   "engineering": "Engineering",
   "humanResources": "Human Resources",
   "legal": "Legal",
-
   "tableLang": "En"
 }
