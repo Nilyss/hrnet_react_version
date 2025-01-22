@@ -2,15 +2,12 @@
 @use '../../utils/styles/mixins' as mixins;
 @use '../../utils/styles/variables' as vars;
 
-// import Ubuntu font from google cdn
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
-
 /* Box sizing rules */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'gara', 'Georgia', sans-serif;
   color: vars.$fontColorPrimary;
 }
 
