@@ -9,8 +9,8 @@ import './utils/i18n'
 import App from './App.tsx'
 
 // context
-import { EmployeeProvider } from './context/EmployeeContext.tsx'
-import { CountryStateProvider } from './context/CountryStateContext.tsx'
+import { EmployeeProvider } from './context/employeeContext/EmployeeProvider.tsx'
+import { CountryStateProvider } from './context/countryStateContext/CountryStateProvider.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <EmployeeProvider>

@@ -1,4 +1,4 @@
-@use "sass:color";
+@use 'sass:color';
 
 @use '../../utils/styles/variables' as vars;
 @use '../../utils/styles/mixins' as mixins;
@@ -157,4 +157,8 @@
 
 .buttonEnabled {
   @include mixins.buttonEnabled;
+}
+
+#newEmployeeForm .errorMessage {
+  color: vars.$errorColor;
 }

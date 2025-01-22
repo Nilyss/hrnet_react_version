@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next'
 import BackToTop from '../../components/backToTop/BackToTop'
 
 // context
-import { EmployeeContext } from '../../context/EmployeeContext.tsx'
+import { EmployeeContext } from '../../context/employeeContext/EmployeeContext.tsx'
 
 export default function CurrentEmployees(): ReactElement {
   const { employees, getEmployees } = useContext(EmployeeContext)
@@ -27,7 +27,7 @@ export default function CurrentEmployees(): ReactElement {
     if (!employees) {
       getEmployees()
     }
-  }, [])
+  }, [employees, getEmployees])
 
   const tableHead: string[] = [
     t('firstName'),

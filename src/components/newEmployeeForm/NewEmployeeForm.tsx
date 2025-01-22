@@ -14,8 +14,8 @@ import Select, { SingleValue } from 'react-select'
 import { useTranslation } from 'react-i18next'
 
 // context
-import { CountryStateContext } from '../../context/CountryStateContext.tsx'
-import { EmployeeContext } from '../../context/EmployeeContext.tsx'
+import { CountryStateContext } from '../../context/countryStateContext/CountryStateContext.tsx'
+import { EmployeeContext } from '../../context/employeeContext/EmployeeContext.tsx'
 
 // components
 import DatePicker from '../datePicker/DatePicker.tsx'
@@ -79,7 +79,11 @@ export default function NewEmployeeForm(): ReactElement {
           value.trim().length >= 3 &&
           /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{1,50}$/.test(value)
         ) {
-          console.log('firstName -≥', value)
+          setErrorMessages({
+            ...errorMessages,
+            firstName: '',
+          })
+        } else {
           setErrorMessages({
             ...errorMessages,
             firstName: 'First name must be at least 3 characters long.',
@@ -93,38 +97,25 @@ export default function NewEmployeeForm(): ReactElement {
           value.trim().length >= 3 &&
           /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{1,100}$/.test(value)
         ) {
-          console.log('lastName -≥', value)
-          // supprimer ici les messages d'erreur
+          setErrorMessages({
+            ...errorMessages,
+            lastName: '',
+          })
+        } else {
+          setErrorMessages({
+            ...errorMessages,
+            lastName: 'Last name must be at least 3 characters long.',
+          })
         }
         break
       case 'street':
         setStreet(value)
-        if (!/^[^<>%$&;:{}[\]\\/"|~^`]*$/.test(value)) {
-          console.log('street -≥', value)
-          // supprimer ici les messages d'erreur
-        }
         break
       case 'city':
         setCity(value)
-        if (
-          value.trim()! == '' &&
-          value.trim().length >= 2 &&
-          /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{1,50}$/.test(value)
-        ) {
-          console.log('city -≥', value)
-          // supprimer ici les messages d'erreur
-        }
         break
       case 'zipCode':
         setZipCode(value)
-        if (
-          value.trim() !== '' &&
-          value.trim().length >= 3 &&
-          /^[A-Za-z0-9\- ]{3,10}$/.test(value)
-        ) {
-          console.log('zipCode -≥', value)
-          // supprimer ici les messages d'erreur
-        }
         break
     }
   }
@@ -233,6 +224,9 @@ export default function NewEmployeeForm(): ReactElement {
                   }
                   required
                 />
+                {errorMessages.firstName && (
+                  <p className={'errorMessage'}>{errorMessages.firstName}</p>
+                )}
               </div>
               <div className={'inputWrapper'}>
                 <label htmlFor={'lastName'}>{t('lastName')}</label>
@@ -246,6 +240,9 @@ export default function NewEmployeeForm(): ReactElement {
                   }
                   required
                 />
+                {errorMessages.lastName && (
+                  <p className={'errorMessage'}>{errorMessages.lastName}</p>
+                )}
               </div>
               <div className={'inputWrapper'}>
                 <label htmlFor={'dateOfBirth'}>{t('dateOfBirth')}</label>
